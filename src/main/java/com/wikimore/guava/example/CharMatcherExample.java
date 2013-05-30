@@ -18,26 +18,22 @@ package com.wikimore.guava.example;
 
 import org.junit.Test;
 
-import com.google.common.base.Optional;
+import com.google.common.base.CharMatcher;
 
 /**
  * @author ted created at 2013-5-30
  */
-public class OptionalExample {
-
+public class CharMatcherExample {
     @Test
-    public void optionalTest() {
-        // 加载一个不为null的对象
-        Optional<Long> ol = Optional.of(5L);
-        long param = 11;
-        // 14.0.1 源代码给我比较大的困惑，感觉这个方法就是check param 是否为null，如果为null产生异常
-        // 不是null 返回ol内部装载的值，感觉没有实际作用
-        ol.or(param);
-        // 获得值
-        ol.get();
-        Optional<Long> ol2 = Optional.fromNullable(null);// 加载一个为null的对象
-        ol2.or(param);
-        // 当加载的对象为null，获取时就会报错，从而避免了NullPointException
-        ol2.get();
+    public void charMatcherTest() {
+        String v1 = CharMatcher.BREAKING_WHITESPACE.replaceFrom("1 21  212 12 ", "3");
+        System.out.println(v1);
+        String v2 = CharMatcher.BREAKING_WHITESPACE.removeFrom("1 21  212 12 ");
+        System.out.println(v2);
+        String v3 = CharMatcher.is('2').retainFrom("1 21  212 12 ");
+        System.out.println(v3);
+        String v4 = CharMatcher.anyOf("1234").retainFrom("1dfdsfasd5dd2fdf6df4dfdf2f3");
+        System.out.println(v4);
+        CharMatcher.BREAKING_WHITESPACE.matchesAnyOf("fdfdfasd ");
     }
 }
